@@ -1,0 +1,26 @@
+<div ng-controller="PaySlipController">
+
+	<div ng-model="errors" class="errors">
+		{{errors}}
+	</div>
+	<div class="input-container">
+		
+		<div>
+			Copy and Paste Input Data into TextArea below:
+		</div>
+		<textarea ng-model="csvInput" cols="60" rows="10"></textarea>
+		<button ng-click="submit()">
+			Submit
+		</button>
+	</div>
+
+	<div class="output-container">
+		<div class="payslip-container">
+			<div>Your Pay Slips:</div>
+		
+			<div ng-repeat="payslip in payslips">
+			  {{payslip.firstName}} {{payslip.lastName}}, {{payslip.payPeriodFrom}} - {{payslip.payPeriodTo}}, {{payslip.gross}}, {{payslip.tax}}, {{payslip.net}}, {{payslip.super}}
+			</div>
+		</div>
+	</div>
+</div>
