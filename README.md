@@ -13,6 +13,7 @@
 
 The project scaffolding is simply pulled from a public git repo - https://github.com/angular/angular-seed
 I am using momentjs (a 3rd part js lib) to handle date calculations.
+NPM is used to managed the tooling dependencies and bowers is used to manage the front end library dependencies.
 
 
 
