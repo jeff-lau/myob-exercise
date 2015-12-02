@@ -3,7 +3,13 @@ var incomeCalculationsModule = angular.module('incomeCalculationsModule', []);
 
 incomeCalculationsModule.factory('IncomeCalculationService', function(){
 	
-	// NOTE: Order matters!
+	/**
+	 * A simple array to represent tax tables.
+	 * Each object in the array only has 2 attributes, ceiling value for that bracket and the rate for that bracket.
+	 * The final bracket has the ceiling of null.
+	 *
+	 * NOTE: Order matters!
+	 */
 	var DEFAULT_TAX_TABLE = [
 		{
 			ceiling: 18200, 

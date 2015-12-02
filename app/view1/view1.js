@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('myApp.view1', ['ngRoute', 'csvParserModule', 'incomeCalculationsModule'])
+angular.module('myApp.view1', ['ngRoute', 'csvParserModule', 'incomeCalculationsModule', 'angular-momentjs'])
 
 .config(['$routeProvider', function($routeProvider) {
 	$routeProvider.when('/view1', {
@@ -9,7 +9,7 @@ angular.module('myApp.view1', ['ngRoute', 'csvParserModule', 'incomeCalculations
 	});
 }])
 
-.controller('PaySlipController', ['$scope', 'CsvParser', 'IncomeCalculationService', function($scope, csvParser, incomeCalculationService) {
+.controller('PaySlipController', ['$scope', 'CsvParser', 'IncomeCalculationService', 'MomentJS', function($scope, csvParser, incomeCalculationService, moment) {
 
 	// Input CSV (Needs to be parsed)
 	$scope.csvInput = ''; 
@@ -18,23 +18,20 @@ angular.module('myApp.view1', ['ngRoute', 'csvParserModule', 'incomeCalculations
 	$scope.submit = function() {
 		try {
 
-			//Output
+			// Clear the output and error on every submit.
 			$scope.payslips = [];
-
-			// Errors
 			$scope.errors = '';
 
 			// Parse the CSV data, and calculate the payslip data for each CSV row.
 			var parsedData = csvParser.parse($scope.csvInput);
 			for (var i = 0; i < parsedData.length; i++) {
-				$scope.payslips.push(calculatePayslipData(parsedData[i], incomeCalculationService));
+				$scope.payslips.push(calculatePayslipData(parsedData[i], incomeCalculationService, moment));
 			}
 
 		} catch (e) {
 			
 			// Handle any exceptions.  This can be validation error, or runtime error.
 			// Simply display it on the screen.
-			console.error(e);
 			$scope.errors = e;
 		}
 	};
@@ -47,13 +44,13 @@ angular.module('myApp.view1', ['ngRoute', 'csvParserModule', 'incomeCalculations
  * @param  {[type]}
  * @return {[type]}
  */
-function calculatePayslipData(data, incomeCalculationService) {
+function calculatePayslipData(data, incomeCalculationService, moment) {
 
 	// +1 because the calculation needs to be inclusive.
 	var dateDiff = data.startDate.toDate.diff(data.startDate.fromDate, 'Days') + 1;
 
-	// I am making an assumption of current year.  Since no year information is given.  Leap year maybe incorrectly handled 
-	var numberOfDaysInMonth = daysInMonth(data.startDate.toDate.month(), 2015);
+	// I am making an assumption of current year.  Since no year information is given.
+	var numberOfDaysInMonth = parseInt(moment().endOf('month').format('DD'));
 	
 	// How many % of the month did this person work?
 	var monthPortion = dateDiff / numberOfDaysInMonth;
@@ -76,16 +73,4 @@ function calculatePayslipData(data, incomeCalculationService) {
 		net: netIncome,
 		super: monthlySuper
 	};
-}
-
-
-/**
- * A method to get the number of days in the month. 
- * I am making an assumption of current year.  Since no year information is given.  Leap year will be incorrectly handled.
- * 
- * @param month {[integer]} - Integer presenting the month. 0 indexed (i.e 0 for Jan)
- * @return {[type]}
- */
-function daysInMonth(month) {
-	return new Date(2015, month + 1, 0).getDate();
 }
