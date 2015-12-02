@@ -11,7 +11,6 @@
     "angular-loader": "~1.4.0",
     "angular-mocks": "~1.4.0",
     "html5-boilerplate": "~5.2.0",
-    "angular-moment": "~0.10.3",
-    "moment": "~2.10.6"
+    "angular-moment-service": "angular-momentjs-service#~0.1.0"
   }
 }

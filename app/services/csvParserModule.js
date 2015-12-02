@@ -5,19 +5,14 @@ var CSV_DELIMITER = ',';
 var EXPECTED_DATE_FORMAT = 'DD MMMM';
 
 
-var csvParserModule = angular.module('csvParserModule', []);
+var csvParserModule = angular.module('csvParserModule', ['angular-momentjs']);
 
 /**
  * Service for parsing a CSV String.
  * The CSV String should be be delimited by ',' and new line by '\n'.
  *
  */
-csvParserModule.factory('CsvParser', ['$window', function($window) {
-
-	// There seems to be a bug with angular-moments that causes karma to be unable to resolve it in test. 
-	// This is a work around without angular-momentum (this normally would be injected.)
-	var moment = $window.moment;
-
+csvParserModule.factory('CsvParser', ['MomentJS', function(moment) {
 
 	/**
 	 * Default object used by the parse method to validate and map a csv row into an object.

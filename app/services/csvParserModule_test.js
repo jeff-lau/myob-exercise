@@ -3,17 +3,18 @@
 describe('csvParserModule', function(){
 
 	var csvParser;
-	var $window;
+	var moment;
 
 	// Load the csvParserModule
-	beforeEach(module('csvParserModule'));
+	beforeEach(function(){
+		module('csvParserModule');	
+	});
 
 	// Inject the service to be tested.
-	beforeEach(inject(function(_CsvParser_, _$window_){
+	beforeEach(inject(function(_CsvParser_, _MomentJS_){
  		csvParser = _CsvParser_;
- 		$window = _$window_;
+ 		moment = _MomentJS_;	
  	}));
-
 
 	describe('CsvParser', function(){
 
@@ -146,8 +147,8 @@ describe('csvParserModule', function(){
 				salary: 60050,
 				superRate: 9,
 				startDate: {
-					fromDate: $window.moment('01 March', 'DD MMMM'),
-					toDate: $window.moment('31 March', 'DD MMMM')
+					fromDate: moment('01 March', 'DD MMMM'),
+					toDate: moment('31 March', 'DD MMMM')
 				}
 			},
 			{
@@ -156,8 +157,8 @@ describe('csvParserModule', function(){
 				salary: 120000,
 				superRate: 10,
 				startDate: {
-					fromDate: $window.moment('01 March', 'DD MMMM'),
-					toDate: $window.moment('31 March', 'DD MMMM')
+					fromDate: moment('01 March', 'DD MMMM'),
+					toDate: moment('31 March', 'DD MMMM')
 				}
 
 			}];

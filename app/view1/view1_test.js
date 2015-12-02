@@ -2,10 +2,13 @@
 
 describe('myApp.view1 module', function() {
 
+    // Controller to be tested.
     var payslipController;
 
+    // Mock CSV Parser that simply returns some dummy data.
     var mockCSVParser;
     var scope;
+    var moment;
 
     var mockIncomeCalculationService = {
         calculateMonthlyTax: function() {
@@ -25,12 +28,15 @@ describe('myApp.view1 module', function() {
         }
     };
 
-    beforeEach(module('myApp.view1'));
+    beforeEach(function(){
+        module('myApp.view1');
+    });
 
     beforeEach(function() {
-        inject(function($controller, $window, $rootScope) {
+        inject(function($controller, $rootScope, _MomentJS_) {
    
             scope = $rootScope.$new();
+            moment = _MomentJS_;
 
             mockCSVParser = {
                 parse: function() {
@@ -40,8 +46,8 @@ describe('myApp.view1 module', function() {
                         salary: 60050,
                         superRate: 9,
                         startDate: {
-                            fromDate: $window.moment('01 March', 'DD MMMM'),
-                            toDate: $window.moment('31 March', 'DD MMMM')
+                            fromDate: moment('01 March', 'DD MMMM'),
+                            toDate: moment('31 March', 'DD MMMM')
                         }
                     }, {
                         firstName: 'Ryan',
@@ -49,8 +55,8 @@ describe('myApp.view1 module', function() {
                         salary: 120000,
                         superRate: 10,
                         startDate: {
-                            fromDate: $window.moment('01 March', 'DD MMMM'),
-                            toDate: $window.moment('31 March', 'DD MMMM')
+                            fromDate: moment('01 March', 'DD MMMM'),
+                            toDate: moment('31 March', 'DD MMMM')
                         }
                     }];
                 }
