@@ -5,7 +5,7 @@
 3. No file based input (i.e. no need to upload a CSV file) 
 4. Start date can be partial months (i.e. it can start on any day and end on any day of the month) 
 5. Since year information is not provided in the input data, I am assuming is CURRENT year when carrying out partial month calculations
-6. I have to assume the person reviewing this exercise have NPM installed, and possibly an internet connection to download any missing dependencies.
+6. I have to assume the person reviewing this exercise have NPM installed, and is a sudoer on his/her machine and has an internet connection to download any missing dependencies.
 7. I have not tested all browsers or mobile. 
 
 
@@ -19,7 +19,7 @@ I am using momentjs (a 3rd part js lib) to handle date calculations.
 ## Running the application
 
 This is a angular web app. 
-Run 'NPM Install' to pull the dependencies (I think I have included everything thats needed, so most likely you won't need to download anything). 
+Run 'sudo NPM Install' to pull the dependencies
 Run 'NPM start' to start serving up the Single Page App at port 8000.
 You should then be able to access it in your browser (I used chrome/firefox) via this URL:  http://localhost:8000/app/index.html
 From there theres a textarea, just copy and paste your CSV data into there and click on the submit button to generate the payslips.
